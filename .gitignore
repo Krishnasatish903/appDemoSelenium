@@ -1,0 +1,13 @@
+# Ignore Maven target directory
+target/
+# Ignore test output reports
+cucumber.html
+emailable-report.html
+testng-results.xml
+surefire-reports/
+
+# Ignore logs
+*.log
+
+# Mac system files
+.DS_Store

@@ -5,7 +5,7 @@ import org.testng.annotations.DataProvider;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 
-@CucumberOptions(features = "src/resources/features",
+@CucumberOptions(features = "src/resources/features/pimPage.feature",
 glue = {"com.stepDefinitions", "com.Hooks"},
 monochrome = true, plugin = {
         "pretty",

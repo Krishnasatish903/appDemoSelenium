@@ -36,6 +36,10 @@ public class loginStepDefinition {
 		loginPage.invalidCredentials(result);
 		}
 	}
-
+	@Given("User is logged into OrangeHRM")
+	public void loginToHrm() {
+		driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+		loginPage.loginToApplication("Admin", "admin123");
+	}
 
 }
