@@ -1,8 +1,13 @@
 package com.utils;
 
+import java.time.Duration;
+
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 public class WebActions {
 
@@ -17,6 +22,7 @@ public class WebActions {
 	    }
 	    //Click the element
 	    public void click(By locator) {
+			waitForElementVisible(locator, 10);
 	        driver.findElement(locator).click();
 	    }
 	    public String getText(By locator) {
@@ -30,8 +36,15 @@ public class WebActions {
 	    public void acceptAlert() {
 	    	switchToAlert().accept();
 	    }
-	    
-	    
-	    
+		public void expectedString(String Expected, By locator){
+			String actualText = driver.findElement(locator).getText();
+			Assert.assertEquals(actualText, Expected);
+		}
+		
+		 public void waitForElementVisible(By locator, int seconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(seconds));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+ 
 
 }
