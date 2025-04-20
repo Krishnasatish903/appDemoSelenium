@@ -103,5 +103,24 @@
         </plugin>
       </plugins>
     </pluginManagement>
+     <plugins> <!-- NEW plugins section for active plugins -->
+      <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-checkstyle-plugin</artifactId>
+          <version>3.3.1</version>
+          <executions>
+              <execution>
+                  <phase>verify</phase>
+                  <goals>
+                      <goal>check</goal>
+                  </goals>
+              </execution>
+          </executions>
+          <configuration>
+              <configLocation>checkstyle.xml</configLocation> <!-- Make sure the checkstyle.xml is in project root -->
+              <failOnViolation>true</failOnViolation>
+          </configuration>
+      </plugin>
+    </plugins>
   </build>
 </project>
