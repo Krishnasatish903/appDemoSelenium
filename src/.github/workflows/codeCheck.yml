@@ -1,0 +1,27 @@
+name: Code check for every PR
+
+on:
+  pull_request:
+    branches:
+      - main  # Adjust branch as needed
+
+jobs:
+  lint-and-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK (if using Java, like in your Selenium project)
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'  # Adjust based on your project
+
+      - name: Build and Run
+        run: |
+          mvn clean install  # Adjust command based on your build tool (e.g., Maven)
+
+      - name: Lint Code
+        run: |
+          mvn checkstyle:check  # Replace with your linting tool (e.g., Checkstyle, ESLint, etc.)
+          
