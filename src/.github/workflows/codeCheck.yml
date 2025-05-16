@@ -1,27 +1,37 @@
-name: Code check for every PR
+name: Run Selenium Tests
 
 on:
   pull_request:
-    branches:
-      - main  # Adjust branch as needed
+    branches: [main]
 
 jobs:
-  lint-and-run:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout Repository
+      uses: actions/checkout@v3
 
-      - name: Set up JDK (if using Java, like in your Selenium project)
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'  # Adjust based on your project
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
 
-      - name: Build and Run
-        run: |
-          mvn clean install  # Adjust command based on your build tool (e.g., Maven)
+    - name: Cache Maven packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-m2
 
-      - name: Lint Code
-        run: |
-          mvn checkstyle:check  # Replace with your linting tool (e.g., Checkstyle, ESLint, etc.)
-          
+    - name: Install Dependencies and Run Tests
+      run: mvn clean test
+
+    - name: Upload Test Results
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results
+        path: target/surefire-reports/
